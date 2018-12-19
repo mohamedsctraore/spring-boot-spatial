@@ -26,3 +26,5 @@
 
 ### node_modules ###
 /src/main/resources/templates/node_modules
+
+/templates/package-lock.json

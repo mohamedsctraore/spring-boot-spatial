@@ -13,6 +13,7 @@ public class User {
     private Long id;
     private String email;
     private String password;
+    private String role = "USER";
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Map> maps;
@@ -55,5 +56,13 @@ public class User {
 
     public void removeMap(Map map) {
         this.maps.remove(map);
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 }
