@@ -66,7 +66,10 @@ function handleEvent() {
             }
         });
 
-        console.log(allMarkersGeoJsonArray);
+        if (allMarkersGeoJsonArray.length === 0)
+            alert("Vous n'avez rien marqué comme point");
+        else
+            console.log(allMarkersGeoJsonArray);
     }
     
     function reloadMap() {
