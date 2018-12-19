@@ -22,14 +22,10 @@ function initMap() {
 };
 
 function handleEvent() {
-    var popup = L.popup();
     var marker;
-    var tabMarker = [];
 
     function onPopupOpen() {
-
         var tempMarker = this;
-
         // To remove marker on click of delete button in the popup of marker
         $(".marker-delete-button:visible").click(function () {
             map.removeLayer(tempMarker);
@@ -37,13 +33,7 @@ function handleEvent() {
     }
 
     function onMapClick(e) {
-        popup
-            .setLatLng(e.latlng)
-            .setContent("You clicked the map at " + e.latlng.toString())
-            .openOn(map);
-
         var geojsonFeature = {
-
             "type": "Feature",
             "properties": {},
             "geometry": {
@@ -53,41 +43,30 @@ function handleEvent() {
         };
 
         L.geoJson(geojsonFeature, {
-
             pointToLayer: function(feature, latlng){
-
                 marker = L.marker(e.latlng, {
-
-                    title: "Resource Location",
+                    title: e.latlng.toString(),
                     alt: e.latlng.toString(),
                     riseOnHover: true,
                     draggable: true
-
                 }).bindPopup("<input type='button' value='Delete this marker' class='marker-delete-button'/>");
 
                 marker.on("popupopen", onPopupOpen);
-
-                tabMarker.push(marker);
                 return marker;
             }
         }).addTo(map);
     }
 
     function getAllMarkers() {
-
-        var allMarkersObjArray = []; // for marker objects
         var allMarkersGeoJsonArray = []; // for readable geoJson markers
 
         $.each(map._layers, function (ml) {
-
             if (map._layers[ml].feature) {
-
-                allMarkersObjArray.push(this)
-                allMarkersGeoJsonArray.push(JSON.stringify(this.toGeoJSON()))
+                allMarkersGeoJsonArray.push(this.toGeoJSON());
             }
-        })
+        });
 
-        console.log(allMarkersObjArray);
+        console.log(allMarkersGeoJsonArray);
     }
     
     function reloadMap() {
@@ -97,6 +76,5 @@ function handleEvent() {
     // any html element such as button, div to call the function()
     $(".get-markers").on("click", getAllMarkers);
     $(".new-map").on("click", reloadMap);
-
     map.on('click', onMapClick);
 }
