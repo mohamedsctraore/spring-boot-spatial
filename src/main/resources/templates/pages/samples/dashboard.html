@@ -145,12 +145,12 @@
                       </th>
                     </tr>
                     </thead>
-                    <tbody>
-                    <tr>
-                      <td>
+                    <tbody th:if="${not user.maps.isEmpty()}">
+                    <tr th:each="map : ${user.maps}">
+                      <td th:text="${map.id}">
                         1
                       </td>
-                      <td>
+                      <td th:text="${map.name}">
                         Abidjan by night
                       </td>
                       <td>
@@ -163,6 +163,13 @@
                         <a class="btn-sm btn-primary" href="#">Afficher</a>
                         <a class="btn-sm btn-success" href="#">Modifier</a>
                         <a class="btn-sm btn-danger" href="#">Supprimer</a>
+                      </td>
+                    </tr>
+                    </tbody>
+                    <tbody th:if="${user.maps.isEmpty()}">
+                    <tr>
+                      <td>
+                        You don't have any map yet
                       </td>
                     </tr>
                     </tbody>
