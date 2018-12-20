@@ -1,9 +1,6 @@
 package com.mohamedsctraore.spatial.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 /**
  * @author Mohamed Traore
@@ -15,6 +12,10 @@ public class Marker {
     private Long id;
     private double lat;
     private double lng;
+
+    @ManyToOne
+    @JoinColumn(name = "map_id")
+    private Map map;
 
     public Long getId() {
         return id;
@@ -38,5 +39,13 @@ public class Marker {
 
     public void setLng(double lng) {
         this.lng = lng;
+    }
+
+    public Map getMap() {
+        return map;
+    }
+
+    public void setMap(Map map) {
+        this.map = map;
     }
 }

@@ -1,7 +1,9 @@
 package com.mohamedsctraore.spatial.config;
 
+import com.mohamedsctraore.spatial.domain.User;
 import com.mohamedsctraore.spatial.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -32,14 +34,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring()
-                .antMatchers( "/resources/**", "/static/**", "/public/**", "/webui/**", "/h2-console/**",
+                .antMatchers( "/vendors/**", "/resources/**", "/static/**", "/public/**", "/webui/**", "/h2-console/**",
                 "/configuration/**", "/*.html", "/**/*.html", "/**/*.css", "/**/*.js", "/**/*.png", "/**/*.jpg",
                 "/**/*.gif", "/**/*.svg", "/**/*.ico", "/**/*.ttf", "/**/*.woff", "/**/*.min.css", "/register");
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.formLogin()
+        http
+            .csrf()
+                .disable()
+                .authorizeRequests()
+                .anyRequest()
+                .authenticated()
+            .and()
+            .formLogin()
             .loginPage("/login")
                 .permitAll()
             .defaultSuccessUrl("/dashboard")
@@ -62,5 +71,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         authenticationProvider.setPasswordEncoder(passwordEncoder());
         authenticationProvider.setUserDetailsService(userService);
         return authenticationProvider;
+    }
+
+    @Bean
+    public ApplicationRunner applicationRunner() {
+        User user = new User();
+        user.setEmail("mohamed.s.c.traore@gmail.com");
+        user.setPassword(passwordEncoder().encode("mangeonsbien"));
+        user.setFirstName("Mohamed");
+        user.setLastName("Traore");
+        user.setRole("USER");
+        return args -> userService.save(user);
     }
 }

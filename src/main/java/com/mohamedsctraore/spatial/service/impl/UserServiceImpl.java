@@ -27,6 +27,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User save(User object) {
+        if (object != null)
+            return repository.save(object);
         return null;
     }
 
@@ -47,7 +49,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findByEmail(String email) {
-        return null;
+        return repository.findByEmail(email);
     }
 
     @Override

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
   <!-- Required meta tags -->
@@ -7,9 +7,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>Spring Boot Spatial</title>
   <!-- plugins:css -->
-  <link rel="stylesheet" href="../../vendors/iconfonts/mdi/css/materialdesignicons.min.css">
-  <link rel="stylesheet" href="../../vendors/css/vendor.bundle.base.css">
-  <link rel="stylesheet" href="../../vendors/css/vendor.bundle.addons.css">
+  <link rel="stylesheet" th:href="@{vendors/iconfonts/mdi/css/materialdesignicons.min.css}">
+  <link rel="stylesheet" th:href="@{vendors/css/vendor.bundle.base.css}">
+  <link rel="stylesheet" th:href="@{vendors/css/vendor.bundle.addons.css}">
   <!-- endinject -->
 
   <!-- plugin css for this page -->
@@ -21,10 +21,10 @@
 
   <!-- End plugin css for this page -->
   <!-- inject:css -->
-  <link rel="stylesheet" href="../../css/style.css">
+  <link rel="stylesheet" th:href="@{css/style.css}">
 
   <!-- endinject -->
-  <link rel="shortcut icon" href="../../images/favicon.png" />
+  <link rel="shortcut icon" th:href="@{images/favicon.png}" />
   <style type="text/css">
     #mapId {
       height: 400px;
@@ -38,19 +38,20 @@
     <!-- partial:../../partials/_navbar.html -->
     <nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
       <div class="text-center navbar-brand-wrapper d-flex align-items-top justify-content-center">
-        <a class="navbar-brand brand-logo" href="../../index.html">
-          <img src="../../images/logo.svg" alt="logo" />
+        <a class="navbar-brand brand-logo" th:href="@{/dashboard}">
+          <img th:src="@{images/logo.svg}" alt="logo" />
         </a>
-        <a class="navbar-brand brand-logo-mini" href="../../index.html">
-          <img src="../../images/logo-mini.svg" alt="logo" />
+        <a class="navbar-brand brand-logo-mini" th:href="@{/dashboard}">
+          <img th:src="@{images/logo-mini.svg}" alt="logo" />
         </a>
       </div>
       <div class="navbar-menu-wrapper d-flex align-items-center">
         <ul class="navbar-nav navbar-nav-right">
           <li class="nav-item dropdown d-none d-xl-inline-block">
             <a class="nav-link dropdown-toggle" id="UserDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
-              <span class="profile-text">Hello, Richard V.Welsh !</span>
-              <img class="img-xs rounded-circle" src="../../images/faces/face1.jpg" alt="Profile image">
+              <span class="profile-text">Hello,</span>
+              <span th:text="${user.firstName}" class="profile-text">Richard V.Welsh !</span>
+              <img class="img-xs rounded-circle" th:src="@{images/faces/face1.jpg}" alt="Profile image">
             </a>
             <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
               <a class="dropdown-item p-0">
@@ -66,7 +67,7 @@
                   </div>
                 </div>
               </a>
-              <a class="dropdown-item">
+              <a th:href="@{/logout}" class="dropdown-item">
                 Sign Out
               </a>
             </div>
@@ -88,12 +89,12 @@
             <div class="nav-link">
               <div class="user-wrapper">
                 <div class="profile-image">
-                  <img src="../../images/faces/face1.jpg" alt="profile image">
+                  <img th:src="@{images/faces/face1.jpg}" alt="profile image">
                 </div>
                 <div class="text-wrapper">
-                  <p class="profile-name">Richard V.Welsh</p>
+                  <p th:text="${user.firstName}" class="profile-name">Richard V.Welsh</p>
                   <div>
-                    <small class="designation text-muted">Manager</small>
+                    <small th:text="${user.role}" class="designation text-muted">Manager</small>
                     <span class="status-indicator online"></span>
                   </div>
                 </div>
@@ -216,14 +217,14 @@
   <!-- container-scroller -->
 
   <!-- plugins:js -->
-  <script src="../../vendors/js/vendor.bundle.base.js"></script>
-  <script src="../../vendors/js/vendor.bundle.addons.js"></script>
+  <script th:src="@{vendors/js/vendor.bundle.base.js}"></script>
+  <script th:src="@{vendors/js/vendor.bundle.addons.js}"></script>
   <!-- endinject -->
   <!-- Plugin js for this page-->
   <!-- End plugin js for this page-->
   <!-- inject:js -->
-  <script src="../../js/off-canvas.js"></script>
-  <script src="../../js/misc.js"></script>
+  <script th:src="@{js/off-canvas.js}"></script>
+  <script th:src="@{js/misc.js}"></script>
   <!-- endinject -->
 
   <!-- Custom js for this page-->
@@ -237,7 +238,7 @@
 
   <!-- JS affichage map leafletjs -->
 
-  <script src="../../js/script-map.js"></script>
+  <script th:src="@{js/script-map.js}"></script>
   <!-- End affichage map leafletjs -->
 
   <!-- End custom js for this page-->

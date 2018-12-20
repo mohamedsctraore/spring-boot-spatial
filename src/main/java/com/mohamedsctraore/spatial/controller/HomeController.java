@@ -4,12 +4,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
 /**
- * @author Mohamed on 12/19/18.
+ * @author Mohamed Traore.
  */
 @Controller
 public class HomeController {
 
-    @GetMapping("/")
+    @GetMapping("/dashboard")
     public String home() {
         return "pages/samples/dashboard";
     }
